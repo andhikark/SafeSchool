@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safeschool/Utilities/colors_use.dart';
+import 'package:safeschool/Utilities/text_use.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String description;
@@ -43,7 +44,7 @@ class CustomTextFormField extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: placeholder,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(3.0),
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
                   hintStyle: const TextStyle(color: Colors.grey),
                   filled: true, // Enable filling the background

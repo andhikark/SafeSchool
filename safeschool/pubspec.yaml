@@ -65,6 +65,8 @@ flutter:
     - assets/images/sh_Bullying.png
     - assets/images/greeting.png
     - assets/images/successreport.png
+    - assets/images/signinpic.png 
+    - assets/images/regispic.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
