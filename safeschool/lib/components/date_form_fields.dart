@@ -11,16 +11,16 @@ class CustomDateFormField extends StatefulWidget {
   final TextStyle descriptionTextStyle;
 
   const CustomDateFormField({
-    Key? key,
+    super.key,
     required this.description,
     required this.placeholder,
     required this.controller,
     this.descriptionColor = Colors.black,
     required this.descriptionTextStyle,
-  }) : super(key: key);
+  });
 
   @override
-  _CustomDateFormFieldState createState() => _CustomDateFormFieldState();
+  State<CustomDateFormField> createState() => _CustomDateFormFieldState();
 }
 
 class _CustomDateFormFieldState extends State<CustomDateFormField> {
@@ -59,7 +59,8 @@ class _CustomDateFormFieldState extends State<CustomDateFormField> {
       children: [
         Text(
           widget.description,
-          style: widget.descriptionTextStyle.copyWith(color: widget.descriptionColor),
+          style: widget.descriptionTextStyle
+              .copyWith(color: widget.descriptionColor),
         ),
         const SizedBox(height: 5),
         TextFormField(
@@ -75,7 +76,8 @@ class _CustomDateFormFieldState extends State<CustomDateFormField> {
             fillColor: ColorsUse.secondaryColor,
             hintStyle: const TextStyle(color: Colors.grey),
           ),
-          style: const TextStyle(color: ColorsUse.accentColor), // Set the text color here
+          style: const TextStyle(
+              color: ColorsUse.accentColor), // Set the text color here
         ),
         const SizedBox(height: 20),
       ],

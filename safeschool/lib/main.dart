@@ -6,6 +6,7 @@ import 'package:safeschool/Utilities/colors_use.dart';
 //import 'package:safeschool/components/long_text_form_field.dart';
 //import 'package:safeschool/components/review_report_msg.dart';
 import 'package:safeschool/components/report_success_popup.dart';
+import 'package:safeschool/registrations/first_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: "Rubik",
       ),
-      home: SuccessPopup(), 
+      home: FirstPage(),
     );
   }
 }

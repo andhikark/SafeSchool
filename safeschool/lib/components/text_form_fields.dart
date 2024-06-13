@@ -13,7 +13,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextStyle inputTextStyle;
 
   const CustomTextFormField({
-    Key? key,
+    super.key,
     required this.description,
     required this.placeholder,
     required this.controller,
@@ -23,7 +23,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.descriptionTextStyle,
     this.dropdownItems,
     this.inputTextStyle = const TextStyle(color: Colors.black),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,8 @@ class CustomTextFormField extends StatelessWidget {
               )
             : DropdownButtonFormField<String>(
                 value: controller.text.isNotEmpty ? controller.text : null,
-                items: dropdownItems!.map<DropdownMenuItem<String>>((String value) {
+                items: dropdownItems!
+                    .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),

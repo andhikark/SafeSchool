@@ -9,15 +9,15 @@ class PrimaryButton extends StatefulWidget {
   final bool borderColor;
 
   const PrimaryButton({
-    Key? key,
+    super.key,
     required this.name,
     required this.primary,
     required this.textColor,
     this.borderColor = false,
-  }) : super(key: key);
+  });
 
   @override
-  _PrimaryButtonState createState() => _PrimaryButtonState();
+  State<PrimaryButton> createState() => _PrimaryButtonState();
 }
 
 class _PrimaryButtonState extends State<PrimaryButton> {

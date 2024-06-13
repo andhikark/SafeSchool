@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:safeschool/Utilities/colors_use.dart';
 import 'package:safeschool/Utilities/text_use.dart';
 
-
 class SuccessPopup extends StatelessWidget {
+  const SuccessPopup({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -58,10 +59,10 @@ class SuccessPopup extends StatelessWidget {
               const SizedBox(height: 22),
               Text(
                 "Incident Reported Successfully!",
-                style: TextUse.heading_2().copyWith(color: ColorsUse.primaryColor),
+                style:
+                    TextUse.heading_2().copyWith(color: ColorsUse.primaryColor),
                 textAlign: TextAlign.center,
               ),
-              
             ],
           ),
         ),

@@ -6,7 +6,7 @@ import 'package:safeschool/Utilities/text_use.dart';
 import 'package:safeschool/Widget/types_card.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key});
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:safeschool/Utilities/colors_use.dart';
-import 'package:safeschool/Utilities/text_use.dart'; 
+import 'package:safeschool/Utilities/text_use.dart';
 import 'package:safeschool/components/popup_buttons.dart';
 
 class ReviewPopup extends StatelessWidget {
+  const ReviewPopup({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -52,7 +54,8 @@ class ReviewPopup extends StatelessWidget {
               ),
               Text(
                 "Review Your Report",
-                style: TextUse.heading_1().copyWith(color: ColorsUse.primaryColor),
+                style:
+                    TextUse.heading_1().copyWith(color: ColorsUse.primaryColor),
               ),
               const SizedBox(height: 3),
               Text(
@@ -121,7 +124,8 @@ class ReviewPopup extends StatelessWidget {
                       "a group of students from another grade level started calling me "
                       "names and making fun of my clothes. They followed me for a while "
                       "and wouldn't leave me alone. I felt scared and embarrassed.",
-                      style: TextUse.body().copyWith(color: ColorsUse.secondaryColor),
+                      style: TextUse.body()
+                          .copyWith(color: ColorsUse.secondaryColor),
                       textAlign: TextAlign.justify,
                     ),
                   ],
@@ -134,14 +138,14 @@ class ReviewPopup extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SecondaryButton(
-                      name: "Submit Report", 
-                      primary: ColorsUse.accentColor, 
+                      name: "Submit Report",
+                      primary: ColorsUse.accentColor,
                       textColor: ColorsUse.secondaryColor,
                     ),
                     SizedBox(height: 10),
-                    SecondaryButton( 
-                      name: "Edit Information", 
-                      primary: ColorsUse.secondaryColor, 
+                    SecondaryButton(
+                      name: "Edit Information",
+                      primary: ColorsUse.secondaryColor,
                       textColor: ColorsUse.accentColor,
                       borderColor: true,
                     ),

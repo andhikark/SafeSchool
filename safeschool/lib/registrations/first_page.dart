@@ -4,6 +4,8 @@ import 'package:safeschool/components/buttons.dart';
 import 'package:safeschool/Utilities/text_use.dart'; // Make sure this file is correctly implemented
 
 class FirstPage extends StatelessWidget {
+  const FirstPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,10 +24,10 @@ class FirstPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-             Text(
+            Text(
               'Stand Up for Yourself & Others.',
-              style: TextUse.heading_3().copyWith(color: ColorsUse.primaryColor),
-              
+              style:
+                  TextUse.heading_3().copyWith(color: ColorsUse.primaryColor),
             ),
             const SizedBox(height: 130),
             const PrimaryButton(
@@ -34,7 +36,7 @@ class FirstPage extends StatelessWidget {
               textColor: ColorsUse.backgroundColor,
               borderColor: false,
             ),
-            const SizedBox(height: 15), 
+            const SizedBox(height: 15),
             const PrimaryButton(
               name: "Register",
               primary: ColorsUse.backgroundColor,
