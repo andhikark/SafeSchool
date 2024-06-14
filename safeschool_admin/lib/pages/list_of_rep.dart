@@ -58,7 +58,7 @@ class _ListOfRepState extends State<ListOfRep>
                   fontFamily: "Rubik",
                 ),
               ),
-              indicator: BoxDecoration(
+              indicator: const BoxDecoration(
                 color: ColorsUse.accentColor,
               ),
               indicatorSize: TabBarIndicatorSize.tab,

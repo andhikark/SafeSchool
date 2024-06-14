@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safeschool_admin/Utilities/colors_use.dart';
 import 'package:safeschool_admin/Utilities/text_use.dart';
 
-class SuccessPopup extends StatelessWidget {
+class RejectedPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -49,18 +49,13 @@ class SuccessPopup extends StatelessWidget {
                   child: const Icon(Icons.close, color: ColorsUse.accentColor),
                 ),
               ),
-              Image.asset(
-                'assets/images/successreport.png', // Replace with your image asset
-                height: 200,
-                width: 200,
-              ),
-              const SizedBox(height: 22),
               Text(
-                "Incident Reported Successfully!",
+                "Report Rejected.",
                 style:
                     TextUse.heading_2().copyWith(color: ColorsUse.primaryColor),
                 textAlign: TextAlign.center,
               ),
+              const SizedBox(height: 20,),
             ],
           ),
         ),
