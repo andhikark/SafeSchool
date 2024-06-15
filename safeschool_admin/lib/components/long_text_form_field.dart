@@ -11,7 +11,7 @@ class CustomLongTextFormField extends StatelessWidget {
   final int maxLength;
 
   const CustomLongTextFormField({
-    Key? key,
+    super.key,
     required this.description,
     required this.placeholder,
     required this.controller,
@@ -19,7 +19,7 @@ class CustomLongTextFormField extends StatelessWidget {
     required this.descriptionTextStyle,
     this.inputTextStyle = const TextStyle(color: Colors.black),
     this.maxLength = 500,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

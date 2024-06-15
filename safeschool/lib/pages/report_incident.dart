@@ -23,6 +23,10 @@ class _ReportIncidentState extends State<ReportIncident> {
       TextEditingController();
   final TextEditingController longTextController = TextEditingController();
 
+  void _defaultOnTap() {
+    // This function does nothing intentionally
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,12 +156,6 @@ class _ReportIncidentState extends State<ReportIncident> {
               descriptionTextStyle:
                   TextUse.heading_2().copyWith(color: ColorsUse.accentColor),
               dropdownItems: const [
-                'Grade 1',
-                'Grade 2',
-                'Grade 3',
-                'Grade 4',
-                'Grade 5',
-                'Grade 6',
                 'Grade 7',
                 'Grade 8',
                 'Grade 9',
@@ -177,12 +175,7 @@ class _ReportIncidentState extends State<ReportIncident> {
                 'Physical Bullying',
                 'Sexual Bullying',
                 'Verbal Bullying',
-                'Social Bullying',
                 'Cyberbullying',
-                'Racial bullying',
-                'Academic bullying',
-                'LGBTQ+ bullying',
-                'Other',
               ],
             ),
             const SizedBox(height: 16),

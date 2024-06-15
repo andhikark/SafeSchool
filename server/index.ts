@@ -15,7 +15,7 @@ app.get('/', (c) =>
 );
 
 app.route('/report', report);
-app.route('auth',auth);
+app.route('/auth',auth);
 
 const en = new Date().getTime();
 

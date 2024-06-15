@@ -17,8 +17,10 @@ import 'package:safeschool/pages/bullying_types/sexual_h.dart';
 import 'package:safeschool/pages/help.dart';
 import 'package:safeschool/pages/home.dart';
 import 'package:safeschool/pages/home_page.dart';
+import 'package:safeschool/registrations/first_page.dart';
 import 'package:safeschool/registrations/register_page.dart';
 import 'package:safeschool/pages/report_incident.dart';
+import 'package:safeschool/registrations/sign_in_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
   // final TextEditingController dateController = TextEditingController();
   // final TextEditingController gradeController = TextEditingController();
   final TextEditingController longTextController = TextEditingController();
+
+  MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -57,7 +61,7 @@ class MyApp extends StatelessWidget {
         '/bullying_types/cyber': (context) => const Cyber(),
         '/bullying_types/sexual_h': (context) => const SexualH(),
       },
-      home: const BottomNavbar(),
+      home: RegisterScreen(),
     );
   }
 }

@@ -9,13 +9,21 @@ class NotReviewed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: const Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ReportCard(
               reportName: "Verbal Bullying",
               schoolName: "Sharpie School",
-              date: "05/06/24")
+              date: "05/06/24"),
+          ReportCard(
+              reportName: "Verbal Bullying",
+              schoolName: "Sharpie School",
+              date: "05/06/24"),
+          ReportCard(
+              reportName: "Verbal Bullying",
+              schoolName: "Sharpie School",
+              date: "05/06/24"),
         ],
       ),
     );

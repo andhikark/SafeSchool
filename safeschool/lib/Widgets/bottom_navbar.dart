@@ -69,9 +69,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
       body: pages[index],
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
-          labelTextStyle: MaterialStateProperty.resolveWith<TextStyle>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.selected)) {
+          labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>(
+            (Set<WidgetState> states) {
+              if (states.contains(WidgetState.selected)) {
                 return const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
@@ -87,9 +87,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
               );
             },
           ),
-          iconTheme: MaterialStateProperty.resolveWith<IconThemeData>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.selected)) {
+          iconTheme: WidgetStateProperty.resolveWith<IconThemeData>(
+            (Set<WidgetState> states) {
+              if (states.contains(WidgetState.selected)) {
                 return const IconThemeData(
                   color: ColorsUse.primaryColor,
                   size: 26,

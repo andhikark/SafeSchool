@@ -1,12 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:safeschool/Utilities/colors_use.dart';
+import 'package:safeschool/Widgets/bottom_navbar.dart';
 import 'package:safeschool/components/buttons.dart';
 import 'package:safeschool/Utilities/text_use.dart';
 import 'package:safeschool/components/text_form_fields.dart';
+import 'package:dio/dio.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final Dio dio = Dio();
+
+  void _login() async {
+    final data = {
+      "email": emailController.text,
+      "password": passwordController.text,
+    };
+
+    try {
+      final response = await _makeLoginRequest(data);
+      Map<String, dynamic> jsonResponse = response.data;
+
+      if (jsonResponse['success'] == true) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const BottomNavbar()),
+        );
+      } else {
+        String errorMessage = jsonResponse['message'];
+        _showErrorMessage('Login failed. $errorMessage');
+      }
+    } catch (e) {
+      _showErrorMessage('Login Failed');
+    }
+  }
+
+  Future<Response> _makeLoginRequest(Map<String, dynamic> data) async {
+    return dio.post(
+      'http://10.0.2.2:8080/auth/login', // Use HTTPS
+      data: data,
+    );
+  }
+
+  void _showErrorMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +98,8 @@ class SignInScreen extends StatelessWidget {
                     placeholder: "Your email",
                     controller: emailController,
                     descriptionTextStyle: TextUse.heading_2(),
-                    inputTextStyle: TextUse.heading_3().copyWith(color: ColorsUse.accentColor),
+                    inputTextStyle: TextUse.heading_3()
+                        .copyWith(color: ColorsUse.accentColor),
                   ),
                   const SizedBox(height: 0.5),
                   CustomTextFormField(
@@ -60,21 +108,24 @@ class SignInScreen extends StatelessWidget {
                     isPassword: true,
                     controller: passwordController,
                     descriptionTextStyle: TextUse.heading_2(),
-                    inputTextStyle: TextUse.heading_3().copyWith(color: ColorsUse.accentColor),
+                    inputTextStyle: TextUse.heading_3()
+                        .copyWith(color: ColorsUse.accentColor),
                   ),
                   const SizedBox(height: 50),
-                  const PrimaryButton(
+                  PrimaryButton(
                     name: 'Sign In',
                     primary: ColorsUse.primaryColor,
                     textColor: ColorsUse.backgroundColor,
                     borderColor: false,
+                    onTap: _login, // Ensure the callback is passed correctly
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         'Don\'t have an account?',
-                        style: TextUse.body().copyWith(color: ColorsUse.accentColor),
+                        style: TextUse.body()
+                            .copyWith(color: ColorsUse.accentColor),
                       ),
                       TextButton(
                         onPressed: () {
@@ -109,8 +160,10 @@ class BottomCircleClipper extends CustomClipper<Path> {
     path.moveTo(0, 0);
     path.lineTo(0, size.height * 0.7);
     path.quadraticBezierTo(
-      size.width / 2, size.height,
-      size.width, size.height * 0.7,
+      size.width / 2,
+      size.height,
+      size.width,
+      size.height * 0.7,
     );
     path.lineTo(size.width, 0);
     path.close();

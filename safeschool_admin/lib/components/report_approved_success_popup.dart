@@ -3,6 +3,8 @@ import 'package:safeschool_admin/Utilities/colors_use.dart';
 import 'package:safeschool_admin/Utilities/text_use.dart';
 
 class ReportApprovedSuccessPopup extends StatelessWidget {
+  const ReportApprovedSuccessPopup({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Dialog(

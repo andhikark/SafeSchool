@@ -10,16 +10,16 @@ class CustomDateFormField extends StatefulWidget {
   final TextStyle descriptionTextStyle;
 
   const CustomDateFormField({
-    Key? key,
+    super.key,
     required this.description,
     required this.placeholder,
     required this.controller,
     this.descriptionColor = Colors.black,
     required this.descriptionTextStyle,
-  }) : super(key: key);
+  });
 
   @override
-  _CustomDateFormFieldState createState() => _CustomDateFormFieldState();
+  State<CustomDateFormField> createState() => _CustomDateFormFieldState();
 }
 
 class _CustomDateFormFieldState extends State<CustomDateFormField> {

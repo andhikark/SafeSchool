@@ -35,6 +35,7 @@ class FirstPage extends StatelessWidget {
               primary: ColorsUse.primaryColor,
               textColor: ColorsUse.backgroundColor,
               borderColor: false,
+              onTap: null,
             ),
             const SizedBox(height: 15),
             const PrimaryButton(
@@ -42,6 +43,7 @@ class FirstPage extends StatelessWidget {
               primary: ColorsUse.backgroundColor,
               textColor: ColorsUse.accentColor,
               borderColor: true,
+              onTap: null,
             ),
           ],
         ),

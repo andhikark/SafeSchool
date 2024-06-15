@@ -3,6 +3,8 @@ import 'package:safeschool_admin/Utilities/colors_use.dart';
 import 'package:safeschool_admin/Utilities/text_use.dart';
 
 class RejectedPopup extends StatelessWidget {
+  const RejectedPopup({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -55,7 +57,9 @@ class RejectedPopup extends StatelessWidget {
                     TextUse.heading_2().copyWith(color: ColorsUse.primaryColor),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),

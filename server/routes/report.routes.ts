@@ -5,6 +5,8 @@ import getReportByRegion from "../controllers/Report/getReportByRegion";
 import updateReportApproved from "../controllers/Report/updateReport";
 import updateReportRejected from "../controllers/Report/updateReportRejected";
 import createReport from "../controllers/Report/createReport";
+import getReportPending from "../controllers/Report/getReportPending";
+import getReportReviewed from "../controllers/Report/getReportReviewed";
 
 
 
@@ -16,6 +18,8 @@ const report = new Hono({ strict: false });
 report.get("/allReport",getAllReport);
 report.get("/reportByType",getReportByType);
 report.get("/reportByRegion",getReportByRegion);
+report.get("/reportPending",getReportPending);
+report.get("/reportReviewed",getReportReviewed);
 
 report.patch("/updateReportApproved/:reportId",updateReportApproved);
 report.patch("/updateReportRejected/:reportId",updateReportRejected);

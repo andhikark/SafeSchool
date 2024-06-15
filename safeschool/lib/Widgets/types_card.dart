@@ -8,11 +8,11 @@ class TypesCard extends StatelessWidget {
   final VoidCallback? onTap;
 
   const TypesCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.img,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

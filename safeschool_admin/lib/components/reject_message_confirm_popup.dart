@@ -4,6 +4,8 @@ import 'package:safeschool_admin/Utilities/text_use.dart';
 import 'package:safeschool_admin/components/popup_buttons.dart';
 
 class RejectMessageConfirmPopup extends StatelessWidget {
+  const RejectMessageConfirmPopup({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -55,7 +57,6 @@ class RejectMessageConfirmPopup extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style:
                     TextUse.heading_2().copyWith(color: ColorsUse.primaryColor),
-                    
               ),
               const SizedBox(height: 50),
               const Align(

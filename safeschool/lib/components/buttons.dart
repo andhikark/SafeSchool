@@ -7,14 +7,15 @@ class PrimaryButton extends StatefulWidget {
   final Color primary;
   final Color textColor;
   final bool borderColor;
+  final VoidCallback? onTap;
 
-  const PrimaryButton({
-    super.key,
-    required this.name,
-    required this.primary,
-    required this.textColor,
-    this.borderColor = false,
-  });
+  const PrimaryButton(
+      {super.key,
+      required this.name,
+      required this.primary,
+      required this.textColor,
+      this.borderColor = false,
+      this.onTap});
 
   @override
   State<PrimaryButton> createState() => _PrimaryButtonState();
@@ -53,9 +54,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
               _isPressed = false;
             });
           },
-          onTap: () {
-            // Add your onTap functionality here
-          },
+          onTap: widget.onTap,
           child: Ink(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),

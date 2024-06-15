@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safeschool/Utilities/colors_use.dart';
+import 'package:safeschool/registrations/first_page.dart';
 //import 'package:safeschool/Utilities/text_use.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,7 +37,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: ColorsUse.secondaryColor,
         selectedItemColor: ColorsUse.primaryColor,
@@ -111,7 +111,10 @@ class GreetingSection extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // Logout logic here
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const FirstPage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: ColorsUse.accentColor,
@@ -186,7 +189,6 @@ class SubmitReportSection extends StatelessWidget {
               ),
             ),
           ),
-         
         ],
       ),
     );
@@ -207,10 +209,8 @@ class BullyingTypesSection extends StatelessWidget {
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: ColorsUse.accentColor,
-            
           ),
         ),
-        
         SizedBox(height: 10),
         SizedBox(
           height: 200,

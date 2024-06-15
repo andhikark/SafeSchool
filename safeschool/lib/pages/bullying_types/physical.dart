@@ -3,7 +3,7 @@ import 'package:safeschool/Utilities/colors_use.dart';
 import 'package:safeschool/Utilities/text_use.dart';
 
 class Physical extends StatelessWidget {
-  const Physical({Key? key});
+  const Physical({super.key});
 
   @override
   Widget build(BuildContext context) {
