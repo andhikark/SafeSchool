@@ -182,6 +182,30 @@ class Home extends StatelessWidget {
                     )
                   ],
                 ),
+                Positioned(
+                  top: 23,
+                  left: 260,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      null;
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: ColorsUse.accentColor,
+                      backgroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 35,
+                        vertical: 5,
+                      ),
+                      textStyle: TextUse.heading_3().merge(const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w600)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7),
+                      ),
+                      elevation: 5,
+                    ),
+                    child: const Text('Logout'),
+                  ),
+                ),
               ],
             ),
           ),
