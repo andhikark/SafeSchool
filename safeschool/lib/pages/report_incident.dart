@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:safeschool/Utilities/colors_use.dart';
 import 'package:safeschool/Utilities/text_use.dart';
 import 'package:safeschool/components/date_form_fields.dart';
@@ -23,8 +25,71 @@ class _ReportIncidentState extends State<ReportIncident> {
       TextEditingController();
   final TextEditingController longTextController = TextEditingController();
 
-  void _defaultOnTap() {
-    // This function does nothing intentionally
+  Dio dio = Dio();
+
+  String mapDropdownItem(String item) {
+    switch (item) {
+      case 'Physical Bullying':
+        return 'physical';
+      case 'Sexual Bullying':
+        return 'sexual_harassment';
+      case 'Verbal Bullying':
+        return 'verbal';
+      case 'Cyberbullying':
+        return 'cyber';
+      default:
+        return item;
+    }
+  }
+
+  void _postReport() async {
+    DateTime parsedDate = DateFormat('dd/MM/yyyy').parse(dateController.text);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(parsedDate);
+    String formattedProvince =
+        provinceDropDownController.text.replaceAll(' ', '_');
+    List<String> parts = gradeLevelController.text.split(' ');
+    String formattedGrade = '${parts[0].toLowerCase()}_${parts[1]}';
+    String formattedTypeOfBullying =
+        mapDropdownItem(typeOfBullyingController.text);
+
+    final data = {
+      'dateOfIncident': formattedDate,
+      'schoolName': schoolNameController.text,
+      'province': formattedProvince,
+      'gradeLevel': formattedGrade,
+      'typeOfBullying': formattedTypeOfBullying,
+      'whatHappened': longTextController.text,
+    };
+
+    print(data);
+
+    try {
+      Response response = await dio.post(
+        'http://10.0.2.2:8080/report/createReport',
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Incident reported successfully')),
+        );
+        dateController.clear();
+        schoolNameController.clear();
+        provinceDropDownController.clear();
+        gradeLevelController.clear();
+        typeOfBullyingController.clear();
+        longTextController.clear();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to report incident')),
+        );
+      }
+    } catch (e) {
+      print('Error posting report: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error: Failed to report incident')),
+      );
+    }
   }
 
   @override
@@ -190,7 +255,7 @@ class _ReportIncidentState extends State<ReportIncident> {
                   TextUse.heading_3().copyWith(color: ColorsUse.accentColor),
             ),
             const SizedBox(height: 16),
-            const Center(
+            Center(
               child: PrimaryButton(
                 name: 'Confirm',
                 primary: ColorsUse.primaryColor,
@@ -199,6 +264,7 @@ class _ReportIncidentState extends State<ReportIncident> {
                 // onPressed: () {
                 //   // Define what happens when the button is pressed
                 // },
+                onTap: _postReport,
               ),
             ),
           ],

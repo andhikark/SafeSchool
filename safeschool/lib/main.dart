@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         '/bullying_types/cyber': (context) => const Cyber(),
         '/bullying_types/sexual_h': (context) => const SexualH(),
       },
-      home: RegisterScreen(),
+      home: BottomNavbar(),
     );
   }
 }
