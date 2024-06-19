@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:safeschool_admin/Utilities/colors_use.dart';
 import 'package:safeschool_admin/Utilities/text_use.dart';
-import 'package:safeschool_admin/pages/Statistics/region.dart';
-import 'package:safeschool_admin/pages/Statistics/types_bully.dart';
+import 'package:safeschool_admin/pages/Insights/region.dart';
+import 'package:safeschool_admin/pages/Insights/types_bully.dart';
 
 class Insights extends StatefulWidget {
   const Insights({super.key});
