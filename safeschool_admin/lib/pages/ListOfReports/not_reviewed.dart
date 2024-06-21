@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:safeschool_admin/Utilities/colors_use.dart';
-import 'package:safeschool_admin/Utilities/text_use.dart';
 import 'package:safeschool_admin/Widgets/report_card.dart';
 
 class NotReviewed extends StatelessWidget {
