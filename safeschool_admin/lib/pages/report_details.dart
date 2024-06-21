@@ -3,11 +3,15 @@ import 'package:safeschool_admin/Utilities/colors_use.dart';
 import 'package:safeschool_admin/Utilities/text_use.dart';
 import 'package:safeschool_admin/components/buttons.dart';
 import 'package:safeschool_admin/components/reject_message_confirm_popup.dart';
-import 'package:safeschool_admin/components/rejected_popup.dart';
 import 'package:safeschool_admin/components/report_approved_success_popup.dart';
 
 class ReportDetails extends StatefulWidget {
-  const ReportDetails({super.key});
+  final bool showButtons;
+
+  const ReportDetails({
+    super.key,
+    required this.showButtons,
+  });
 
   @override
   State<ReportDetails> createState() => _ReportDetailsState();
@@ -28,7 +32,7 @@ class _ReportDetailsState extends State<ReportDetails> {
     super.initState();
     // Initialize controllers with mock-up information
     dateController.text = '05/06/2024';
-    schoolNameController.text = 'Sharpie Institue of Technology';
+    schoolNameController.text = 'Sharpie Institute of Technology';
     provinceDropDownController.text = 'Bangkok';
     gradeLevelController.text = 'Grade 10';
     typeOfBullyingController.text = 'Verbal Bullying';
@@ -72,37 +76,39 @@ class _ReportDetailsState extends State<ReportDetails> {
                 'Tell us what happened?', longTextController.text,
                 isLongText: true),
             const SizedBox(height: 45),
-            Center(
-              child: PrimaryButton(
-                name: 'Approve Report',
-                primary: ColorsUse.primaryColor,
-                textColor: ColorsUse.backgroundColor,
-                borderColor: false,
+            if (widget.showButtons) ...[
+              Center(
+                child: PrimaryButton(
+                  name: 'Approve Report',
+                  primary: ColorsUse.primaryColor,
+                  textColor: ColorsUse.backgroundColor,
+                  borderColor: false,
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const ReportApprovedSuccessPopup();
+                      },
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 16),
+              PrimaryButton(
+                name: "Reject Report",
+                primary: ColorsUse.secondaryColor,
+                textColor: ColorsUse.accentColor,
+                borderColor: true,
                 onPressed: () {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return const ReportApprovedSuccessPopup();
+                      return const RejectMessageConfirmPopup();
                     },
                   );
                 },
               ),
-            ),
-            const SizedBox(height: 16),
-            PrimaryButton(
-              name: "Reject Report",
-              primary: ColorsUse.secondaryColor,
-              textColor: ColorsUse.accentColor,
-              borderColor: true,
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const RejectMessageConfirmPopup();
-                  },
-                );
-              },
-            )
+            ],
           ],
         ),
       ),

@@ -35,7 +35,12 @@ class MyApp extends StatelessWidget {
         fontFamily: "Rubik",
       ),
       routes: {
-        '/report_details': (context) => const ReportDetails(),
+        '/report_details_NR': (context) => const ReportDetails(
+              showButtons: true,
+            ),
+        '/report_details_R': (context) => const ReportDetails(
+              showButtons: false,
+            ),
       },
       home: const BottomNavbar(),
     );

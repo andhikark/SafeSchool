@@ -22,7 +22,7 @@ class ReviewedReportCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/report_details');
+        Navigator.pushNamed(context, '/report_details_R');
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
