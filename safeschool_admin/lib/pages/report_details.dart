@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:safeschool_admin/Utilities/colors_use.dart';
 import 'package:safeschool_admin/Utilities/text_use.dart';
 import 'package:safeschool_admin/components/buttons.dart';
+import 'package:safeschool_admin/components/reject_message_confirm_popup.dart';
+import 'package:safeschool_admin/components/rejected_popup.dart';
+import 'package:safeschool_admin/components/report_approved_success_popup.dart';
 
 class ReportDetails extends StatefulWidget {
   const ReportDetails({super.key});
@@ -13,9 +16,11 @@ class ReportDetails extends StatefulWidget {
 class _ReportDetailsState extends State<ReportDetails> {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController schoolNameController = TextEditingController();
-  final TextEditingController provinceDropDownController = TextEditingController();
+  final TextEditingController provinceDropDownController =
+      TextEditingController();
   final TextEditingController gradeLevelController = TextEditingController();
-  final TextEditingController typeOfBullyingController = TextEditingController();
+  final TextEditingController typeOfBullyingController =
+      TextEditingController();
   final TextEditingController longTextController = TextEditingController();
 
   @override
@@ -27,7 +32,8 @@ class _ReportDetailsState extends State<ReportDetails> {
     provinceDropDownController.text = 'Bangkok';
     gradeLevelController.text = 'Grade 10';
     typeOfBullyingController.text = 'Verbal Bullying';
-    longTextController.text = 'Someone mocking me for having sigma skibidi rizz........';
+    longTextController.text =
+        'Someone mocking me for having sigma skibidi rizz........';
   }
 
   @override
@@ -38,7 +44,8 @@ class _ReportDetailsState extends State<ReportDetails> {
           padding: const EdgeInsets.only(bottom: 12.0),
           child: Text(
             'Report Details',
-            style: TextUse.heading_1().copyWith(color: ColorsUse.secondaryColor),
+            style:
+                TextUse.heading_1().copyWith(color: ColorsUse.secondaryColor),
           ),
         ),
         backgroundColor: ColorsUse.primaryColor,
@@ -58,27 +65,43 @@ class _ReportDetailsState extends State<ReportDetails> {
             const SizedBox(height: 16),
             _buildReadOnlyField('Grade Level', gradeLevelController.text),
             const SizedBox(height: 16),
-            _buildReadOnlyField('Type of Bullying', typeOfBullyingController.text),
+            _buildReadOnlyField(
+                'Type of Bullying', typeOfBullyingController.text),
             const SizedBox(height: 16),
-            _buildReadOnlyField('Tell us what happened?', longTextController.text, isLongText: true),
+            _buildReadOnlyField(
+                'Tell us what happened?', longTextController.text,
+                isLongText: true),
             const SizedBox(height: 45),
-            const Center(
+            Center(
               child: PrimaryButton(
                 name: 'Approve Report',
                 primary: ColorsUse.primaryColor,
                 textColor: ColorsUse.backgroundColor,
                 borderColor: false,
-                // onPressed: () {
-                //   // Define what happens when the button is pressed
-                // },
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const ReportApprovedSuccessPopup();
+                    },
+                  );
+                },
               ),
             ),
             const SizedBox(height: 16),
-            const PrimaryButton(
+            PrimaryButton(
               name: "Reject Report",
               primary: ColorsUse.secondaryColor,
               textColor: ColorsUse.accentColor,
               borderColor: true,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const RejectMessageConfirmPopup();
+                  },
+                );
+              },
             )
           ],
         ),
@@ -86,7 +109,8 @@ class _ReportDetailsState extends State<ReportDetails> {
     );
   }
 
-  Widget _buildReadOnlyField(String description, String value, {bool isLongText = false}) {
+  Widget _buildReadOnlyField(String description, String value,
+      {bool isLongText = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

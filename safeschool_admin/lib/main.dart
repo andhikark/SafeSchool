@@ -4,7 +4,7 @@ import 'package:safeschool_admin/Widgets/bottom_navbar.dart';
 import 'package:safeschool_admin/components/reject_message_confirm_popup.dart';
 import 'package:safeschool_admin/pages/report_details.dart';
 import 'package:safeschool_admin/components/report_approved_success_popup.dart';
-import 'package:safeschool_admin/components/rejected_popup.dart'; 
+import 'package:safeschool_admin/components/rejected_popup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,10 +35,9 @@ class MyApp extends StatelessWidget {
         fontFamily: "Rubik",
       ),
       routes: {
-        '/report_incident': (context) => const ReportDetails(),
+        '/report_details': (context) => const ReportDetails(),
       },
       home: const BottomNavbar(),
-      
     );
   }
 }

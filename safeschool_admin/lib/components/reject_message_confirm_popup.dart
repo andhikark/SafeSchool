@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safeschool_admin/Utilities/colors_use.dart';
 import 'package:safeschool_admin/Utilities/text_use.dart';
 import 'package:safeschool_admin/components/popup_buttons.dart';
+import 'package:safeschool_admin/components/rejected_popup.dart';
 
 class RejectMessageConfirmPopup extends StatelessWidget {
   const RejectMessageConfirmPopup({super.key});
@@ -30,7 +31,7 @@ class RejectMessageConfirmPopup extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             boxShadow: const [
               BoxShadow(
-                color: ColorsUse.accentColor,
+                color: Color.fromARGB(98, 12, 17, 4),
                 blurRadius: 10.0,
                 offset: Offset(0.0, 10.0),
               ),
@@ -59,7 +60,7 @@ class RejectMessageConfirmPopup extends StatelessWidget {
                     TextUse.heading_2().copyWith(color: ColorsUse.primaryColor),
               ),
               const SizedBox(height: 50),
-              const Align(
+              Align(
                 alignment: Alignment.bottomCenter,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -68,13 +69,25 @@ class RejectMessageConfirmPopup extends StatelessWidget {
                       name: "Yes",
                       primary: ColorsUse.accentColor,
                       textColor: ColorsUse.secondaryColor,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const RejectedPopup();
+                          },
+                        );
+                      },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     SecondaryButton(
                       name: "No",
                       primary: ColorsUse.secondaryColor,
                       textColor: ColorsUse.accentColor,
                       borderColor: true,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
                     ),
                   ],
                 ),

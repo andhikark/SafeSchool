@@ -29,7 +29,7 @@ class ReportApprovedSuccessPopup extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             boxShadow: const [
               BoxShadow(
-                color: ColorsUse.accentColor,
+                color: Color.fromARGB(98, 12, 17, 4),
                 blurRadius: 10.0,
                 offset: Offset(0.0, 10.0),
               ),

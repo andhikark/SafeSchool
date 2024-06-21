@@ -16,7 +16,7 @@ class ReportCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/report_incident');
+        Navigator.pushNamed(context, '/report_details');
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),

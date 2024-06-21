@@ -7,6 +7,7 @@ class SecondaryButton extends StatefulWidget {
   final Color primary;
   final Color textColor;
   final bool borderColor;
+  final VoidCallback? onPressed;
 
   const SecondaryButton({
     super.key,
@@ -14,6 +15,7 @@ class SecondaryButton extends StatefulWidget {
     required this.primary,
     required this.textColor,
     this.borderColor = false,
+    this.onPressed,
   });
 
   @override
@@ -53,9 +55,7 @@ class _SecondaryButtonState extends State<SecondaryButton> {
               _isPressed = false;
             });
           },
-          onTap: () {
-            // Add your onTap functionality here
-          },
+          onTap: widget.onPressed,
           child: Ink(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
