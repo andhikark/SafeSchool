@@ -9,22 +9,31 @@ class NotReviewed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ReportCard(
-              reportName: "Verbal Bullying",
-              schoolName: "Sharpie School",
-              date: "05/06/24"),
-          ReportCard(
-              reportName: "Verbal Bullying",
-              schoolName: "Sharpie School",
-              date: "05/06/24"),
-          ReportCard(
-              reportName: "Verbal Bullying",
-              schoolName: "Sharpie School",
-              date: "05/06/24"),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ReportCard(
+                reportName: "Verbal Bullying",
+                schoolName: "Sharpie School",
+                date: "05/06/24"),
+            ReportCard(
+                reportName: "Verbal Bullying",
+                schoolName: "Sharpie School",
+                date: "05/06/24"),
+            ReportCard(
+                reportName: "Verbal Bullying",
+                schoolName: "Sharpie School",
+                date: "05/06/24"),
+            ReportCard(
+                reportName: "Verbal Bullying",
+                schoolName: "Sharpie School",
+                date: "05/06/24"),
+            SizedBox(
+              height: 15,
+            ),
+          ],
+        ),
       ),
     );
   }
