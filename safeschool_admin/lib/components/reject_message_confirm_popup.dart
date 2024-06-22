@@ -3,9 +3,60 @@ import 'package:safeschool_admin/Utilities/colors_use.dart';
 import 'package:safeschool_admin/Utilities/text_use.dart';
 import 'package:safeschool_admin/components/popup_buttons.dart';
 import 'package:safeschool_admin/components/rejected_popup.dart';
+import 'package:dio/dio.dart';
 
-class RejectMessageConfirmPopup extends StatelessWidget {
-  const RejectMessageConfirmPopup({super.key});
+class RejectMessageConfirmPopup extends StatefulWidget {
+  final int reportId;
+
+  const RejectMessageConfirmPopup({
+    Key? key,
+    required this.reportId,
+  }) : super(key: key);
+
+  @override
+  State<RejectMessageConfirmPopup> createState() =>
+      _RejectMessageConfirmPopupState();
+}
+
+class _RejectMessageConfirmPopupState extends State<RejectMessageConfirmPopup> {
+  Future<void> updateReportStatus() async {
+    final dio = Dio();
+    final url =
+        'http://10.0.2.2:8080/report/updateReportRejected/${widget.reportId}';
+
+    try {
+      final response = await dio.patch(url);
+      if (response.statusCode == 200) {
+        Navigator.of(context).pop(); // Close rejection confirmation dialog
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const RejectedPopup(); // Show rejection success dialog
+          },
+        );
+      } else {
+        throw Exception('Failed to update report status');
+      }
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text('Failed to update report status: $e'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,13 +121,7 @@ class RejectMessageConfirmPopup extends StatelessWidget {
                       primary: ColorsUse.accentColor,
                       textColor: ColorsUse.secondaryColor,
                       onPressed: () {
-                        Navigator.of(context).pop();
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const RejectedPopup();
-                          },
-                        );
+                        updateReportStatus();
                       },
                     ),
                     const SizedBox(height: 10),

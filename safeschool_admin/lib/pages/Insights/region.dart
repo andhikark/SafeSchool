@@ -79,7 +79,7 @@ class Region extends StatelessWidget {
                         height: 50,
                         width: 50,
                         decoration: BoxDecoration(
-                          color: PieRegionColors.west,
+                          color: PieRegionColors.central,
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),
@@ -87,7 +87,7 @@ class Region extends StatelessWidget {
                         width: 15,
                       ),
                       Text(
-                        "West",
+                        "Central",
                         style: TextUse.heading_2().merge(
                             const TextStyle(color: ColorsUse.accentColor)),
                       ),

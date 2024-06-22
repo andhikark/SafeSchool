@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:safeschool_admin/Utilities/colors_use.dart';
 import 'package:safeschool_admin/Utilities/text_use.dart';
 import 'package:safeschool_admin/components/buttons.dart';
 import 'package:safeschool_admin/components/reject_message_confirm_popup.dart';
 import 'package:safeschool_admin/components/report_approved_success_popup.dart';
+import 'package:dio/dio.dart';
 
 class ReportDetails extends StatefulWidget {
   final bool showButtons;
+  final int reportId;
 
   const ReportDetails({
-    super.key,
+    Key? key,
     required this.showButtons,
-  });
+    required this.reportId,
+  }) : super(key: key);
 
   @override
   State<ReportDetails> createState() => _ReportDetailsState();
@@ -27,17 +31,89 @@ class _ReportDetailsState extends State<ReportDetails> {
       TextEditingController();
   final TextEditingController longTextController = TextEditingController();
 
+  late Map<String, dynamic> reportData;
+
   @override
   void initState() {
     super.initState();
-    // Initialize controllers with mock-up information
-    dateController.text = '05/06/2024';
-    schoolNameController.text = 'Sharpie Institute of Technology';
-    provinceDropDownController.text = 'Bangkok';
-    gradeLevelController.text = 'Grade 10';
-    typeOfBullyingController.text = 'Verbal Bullying';
-    longTextController.text =
-        'Someone mocking me for having sigma skibidi rizz........';
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    final dio = Dio();
+    final url = 'http://10.0.2.2:8080/report/reportById/${widget.reportId}';
+
+    try {
+      final response = await dio.get(url);
+      if (response.statusCode == 200) {
+        final jsonResponse = response.data;
+        setState(() {
+          reportData = jsonResponse['payload'];
+          // Update controllers with fetched data
+          dateController.text = _formatDate(reportData['dateOfIncident']);
+          schoolNameController.text = reportData['schoolName'];
+          provinceDropDownController.text = reportData['province'];
+          gradeLevelController.text = reportData['gradeLevel'];
+          typeOfBullyingController.text = reportData['typeOfBullying'];
+          longTextController.text = reportData['whatHappened'];
+        });
+      } else {
+        throw Exception('Failed to load report details');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  String _formatDate(String? dateString) {
+    if (dateString != null) {
+      try {
+        final parsedDate = DateTime.parse(dateString);
+        return DateFormat('yyyy-MM-dd').format(parsedDate);
+      } catch (e) {
+        print('Error parsing date: $e');
+      }
+    }
+    return 'Invalid Date'; // Default value or placeholder for invalid date
+  }
+
+  Future<void> updateReportStatus(String status) async {
+    final dio = Dio();
+    final url =
+        'http://10.0.2.2:8080/report/updateReport$status/${widget.reportId}';
+
+    print(widget.reportId);
+    try {
+      final response = await dio.patch(url);
+      if (response.statusCode == 200) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const ReportApprovedSuccessPopup(); // Show success dialog
+          },
+        );
+      } else {
+        throw Exception('Failed to update report status');
+      }
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text('Failed to update report status: $e'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override
@@ -84,18 +160,13 @@ class _ReportDetailsState extends State<ReportDetails> {
                   textColor: ColorsUse.backgroundColor,
                   borderColor: false,
                   onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const ReportApprovedSuccessPopup();
-                      },
-                    );
+                    updateReportStatus('Approved');
                   },
                 ),
               ),
               const SizedBox(height: 16),
               PrimaryButton(
-                name: "Reject Report",
+                name: 'Reject Report',
                 primary: ColorsUse.secondaryColor,
                 textColor: ColorsUse.accentColor,
                 borderColor: true,
@@ -103,7 +174,8 @@ class _ReportDetailsState extends State<ReportDetails> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return const RejectMessageConfirmPopup();
+                      return RejectMessageConfirmPopup(
+                          reportId: widget.reportId);
                     },
                   );
                 },

@@ -6,23 +6,24 @@ class ReviewedReportCard extends StatelessWidget {
   final String reportName;
   final String schoolName;
   final String date;
-  final String dateReviewed;
   final bool status;
+  final int reportId;
 
-  const ReviewedReportCard({
-    super.key,
-    required this.reportName,
-    required this.schoolName,
-    required this.date,
-    required this.dateReviewed,
-    required this.status,
-  });
+  const ReviewedReportCard(
+      {Key? key,
+      required this.reportName,
+      required this.schoolName,
+      required this.date,
+      required this.status,
+      required this.reportId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/report_details_R');
+        Navigator.pushNamed(context, '/report_details_Reviewed',
+            arguments: reportId);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
@@ -32,16 +33,17 @@ class ReviewedReportCard extends StatelessWidget {
               height: 130,
               width: 350,
               decoration: BoxDecoration(
-                  color: ColorsUse.secondaryColor,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.25),
-                      spreadRadius: -2,
-                      blurRadius: 5,
-                      offset: const Offset(0, 8),
-                    )
-                  ]),
+                color: ColorsUse.secondaryColor,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    spreadRadius: -2,
+                    blurRadius: 5,
+                    offset: const Offset(0, 8),
+                  )
+                ],
+              ),
             ),
             Padding(
               padding:
@@ -49,26 +51,13 @@ class ReviewedReportCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Text(
-                        reportName,
-                        style: TextUse.heading_3().merge(
-                            const TextStyle(color: ColorsUse.primaryColor)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 140.0),
-                        child: Text(
-                          date,
-                          style: TextUse.heading_3().merge(const TextStyle(
-                              color: ColorsUse.primaryColor, fontSize: 12)),
-                        ),
-                      )
-                    ],
+                  Text(
+                    reportName,
+                    style: TextUse.heading_3().merge(
+                      const TextStyle(color: ColorsUse.primaryColor),
+                    ),
                   ),
-                  const SizedBox(
-                    height: 3,
-                  ),
+                  const SizedBox(height: 3),
                   Text(
                     schoolName,
                     style: TextUse.heading_3().merge(
@@ -78,29 +67,11 @@ class ReviewedReportCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Reviewed on $dateReviewed",
-                        style: TextUse.heading_3().merge(const TextStyle(
-                          color: Color(0xff7D5A5A),
-                          fontSize: 12,
-                        )),
-                      ),
-                      const SizedBox(
-                        width: 87,
-                      ),
-                      ReviewStatus(
-                        status: status,
-                      ),
-                    ],
-                  ),
+                  const SizedBox(height: 15),
+                  ReviewStatus(status: status),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -111,13 +82,14 @@ class ReviewedReportCard extends StatelessWidget {
 class ReviewStatus extends StatelessWidget {
   final bool status;
 
-  const ReviewStatus({super.key, required this.status});
+  const ReviewStatus({Key? key, required this.status}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Color statusColor =
         status ? ColorsUse.primaryColor : const Color(0xff8C1F1F);
     String statusName = status ? "Approved" : "Rejected";
+
     return Container(
       height: 25,
       width: 90,

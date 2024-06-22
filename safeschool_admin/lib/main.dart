@@ -35,12 +35,41 @@ class MyApp extends StatelessWidget {
         fontFamily: "Rubik",
       ),
       routes: {
-        '/report_details_NR': (context) => const ReportDetails(
+        '/report_details_NR': (context) => ReportDetails(
               showButtons: true,
+              reportId: 0,
             ),
-        '/report_details_R': (context) => const ReportDetails(
+        '/report_details_R': (context) => ReportDetails(
               showButtons: false,
+              reportId: 0,
             ),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/report_details') {
+          final args = settings.arguments;
+          if (args is int) {
+            return MaterialPageRoute(
+              builder: (context) => ReportDetails(
+                showButtons:
+                    true, // You can set this based on your requirements
+                reportId: args, // Use args to set reportId
+              ),
+            );
+          }
+        } else if (settings.name == '/report_details_Reviewed') {
+          final args = settings.arguments;
+          if (args is int) {
+            return MaterialPageRoute(
+              builder: (context) => ReportDetails(
+                showButtons:
+                    false, // You can set this based on your requirements
+                reportId: args, // Use args to set reportId
+              ),
+            );
+          }
+        }
+        // Handle other routes here if needed
+        return null;
       },
       home: const BottomNavbar(),
     );

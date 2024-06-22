@@ -3,7 +3,9 @@ import prisma from "../prisma/prisma";
 const getReportReviewedService = async () => {
 	const response = await prisma.report.findMany({
         where: {
-            status: 'approved' || 'rejected'
+            status: {
+                in: ['approved', 'rejected']
+            }
         }
     }
     );

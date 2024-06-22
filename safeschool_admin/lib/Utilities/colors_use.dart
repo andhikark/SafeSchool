@@ -16,7 +16,7 @@ class PieToBColors {
 
 class PieRegionColors {
   static const north = Color(0xff4D9DE0);
-  static const west = Color(0xffE15554);
+  static const central = Color(0xffE15554);
   static const east = Color(0xffE1BC29);
   static const south = Color(0xff3BB273);
   static const northEast = Color(0xff7768AE);
