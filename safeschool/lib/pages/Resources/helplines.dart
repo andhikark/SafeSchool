@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safeschool/Utilities/colors_use.dart';
 import 'package:safeschool/Utilities/text_use.dart';
 import 'package:safeschool/Widgets/health_pro_card.dart';
-import 'package:safeschool/Widgets/types_card.dart';
+// import 'package:safeschool/Widgets/types_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Helplines extends StatelessWidget {

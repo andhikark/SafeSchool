@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safeschool/Utilities/colors_use.dart';
 import 'package:safeschool/Utilities/text_use.dart';
 import 'package:safeschool/Widgets/types_card.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
