@@ -60,8 +60,11 @@ class MyApp extends StatelessWidget {
         '/bullying_types/verbal': (context) => const Verbal(),
         '/bullying_types/cyber': (context) => const Cyber(),
         '/bullying_types/sexual_h': (context) => const SexualH(),
+        '/signin': (context) => const SignInScreen(),
+        '/register': (context) => const RegisterScreen(),
+        '/firstpage': (context) => const FirstPage()
       },
-      home: BottomNavbar(),
+      home: FirstPage(),
     );
   }
 }

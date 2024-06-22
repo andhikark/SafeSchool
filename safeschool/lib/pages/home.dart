@@ -2,9 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:safeschool/Utilities/colors_use.dart';
 import 'package:safeschool/Utilities/text_use.dart';
 import 'package:safeschool/Widgets/types_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  Future<void> _logout(BuildContext context) async {
+    try {
+      // final prefs = await SharedPreferences.getInstance(); // await here
+      // final token =
+      //     prefs.getString('token'); // Get the token from SharedPreferences
+      // print('Token: $token'); // Print the token
+      // await prefs.remove('token'); // Remove the token from SharedPreferences
+
+      // Navigate to the login screen, replacing the current stack
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/firstpage', (route) => false);
+    } catch (e) {
+      print('Error logging out: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +209,7 @@ class Home extends StatelessWidget {
                   left: 260,
                   child: ElevatedButton(
                     onPressed: () {
-                      null;
+                      _logout(context);
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: ColorsUse.accentColor,

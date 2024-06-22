@@ -177,7 +177,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          // Handle register action
+                          Navigator.pushNamed(context, '/signin');
                         },
                         child: Text(
                           'Sign in here',

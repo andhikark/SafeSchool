@@ -5,6 +5,7 @@ import 'package:safeschool/components/buttons.dart';
 import 'package:safeschool/Utilities/text_use.dart';
 import 'package:safeschool/components/text_form_fields.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -27,8 +28,12 @@ class _SignInScreenState extends State<SignInScreen> {
     try {
       final response = await _makeLoginRequest(data);
       Map<String, dynamic> jsonResponse = response.data;
-
+      print(jsonResponse);
       if (jsonResponse['success'] == true) {
+        String token = jsonResponse['payload']['token'];
+        await _storeToken(token);
+        print(token);
+
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const BottomNavbar()),
@@ -37,7 +42,9 @@ class _SignInScreenState extends State<SignInScreen> {
         String errorMessage = jsonResponse['message'];
         _showErrorMessage('Login failed. $errorMessage');
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
+      print('Error making login request: $e');
+      print('Stack trace: $stackTrace');
       _showErrorMessage('Login Failed');
     }
   }
@@ -47,6 +54,20 @@ class _SignInScreenState extends State<SignInScreen> {
       'http://10.0.2.2:8080/auth/login', // Use HTTPS
       data: data,
     );
+  }
+
+  Future<void> _storeToken(String token) async {
+    if (token != null) {
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token);
+        print('Token: $token');
+      } catch (e) {
+        print('Error storing token: $e');
+      }
+    } else {
+      _showErrorMessage('Token is null');
+    }
   }
 
   void _showErrorMessage(String message) {
@@ -129,7 +150,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          // Handle register action
+                          Navigator.pushNamed(context, '/register');
                         },
                         child: Text(
                           'Register here',

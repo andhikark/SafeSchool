@@ -30,20 +30,24 @@ class FirstPage extends StatelessWidget {
                   TextUse.heading_3().copyWith(color: ColorsUse.primaryColor),
             ),
             const SizedBox(height: 130),
-            const PrimaryButton(
+            PrimaryButton(
               name: 'Sign In',
               primary: ColorsUse.primaryColor,
               textColor: ColorsUse.backgroundColor,
               borderColor: false,
-              onTap: null,
+              onTap: () {
+                Navigator.pushNamed(context, '/signin');
+              },
             ),
             const SizedBox(height: 15),
-            const PrimaryButton(
+            PrimaryButton(
               name: "Register",
               primary: ColorsUse.backgroundColor,
               textColor: ColorsUse.accentColor,
               borderColor: true,
-              onTap: null,
+              onTap: () {
+                Navigator.pushNamed(context, '/register');
+              },
             ),
           ],
         ),
