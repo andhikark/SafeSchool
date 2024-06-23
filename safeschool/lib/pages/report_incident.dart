@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +9,7 @@ import 'package:safeschool/components/date_form_fields.dart';
 import 'package:safeschool/components/text_form_fields.dart';
 import 'package:safeschool/components/long_text_form_field.dart';
 import 'package:safeschool/components/buttons.dart';
+import 'package:safeschool/Widgets/add_image.dart';
 
 class ReportIncident extends StatefulWidget {
   const ReportIncident({super.key});
@@ -24,6 +27,7 @@ class _ReportIncidentState extends State<ReportIncident> {
   final TextEditingController typeOfBullyingController =
       TextEditingController();
   final TextEditingController longTextController = TextEditingController();
+  File? _selectedImage;
 
   Dio dio = Dio();
 
@@ -52,21 +56,31 @@ class _ReportIncidentState extends State<ReportIncident> {
     String formattedTypeOfBullying =
         mapDropdownItem(typeOfBullyingController.text);
 
-    final data = {
+    // Create FormData
+    FormData formData = FormData.fromMap({
       'dateOfIncident': formattedDate,
       'schoolName': schoolNameController.text,
       'province': formattedProvince,
       'gradeLevel': formattedGrade,
       'typeOfBullying': formattedTypeOfBullying,
       'whatHappened': longTextController.text,
-    };
+      'file': _selectedImage != null
+          ? await MultipartFile.fromFile(_selectedImage!.path,
+              filename: _selectedImage!.path.split('/').last)
+          : null,
+    });
 
-    print(data);
+    print(formData.fields);
 
     try {
       Response response = await dio.post(
         'http://10.0.2.2:8080/report/createReport',
-        data: data,
+        data: formData,
+        options: Options(
+          headers: {
+            Headers.contentTypeHeader: 'multipart/form-data',
+          },
+        ),
       );
 
       if (response.statusCode == 200) {
@@ -79,6 +93,9 @@ class _ReportIncidentState extends State<ReportIncident> {
         gradeLevelController.clear();
         typeOfBullyingController.clear();
         longTextController.clear();
+        setState(() {
+          _selectedImage = null;
+        });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Failed to report incident')),
@@ -149,7 +166,7 @@ class _ReportIncidentState extends State<ReportIncident> {
                 'Chonburi',
                 'Chumphon',
                 'Kalasin',
-                'Kampheng Phet',
+                'Kamphaeng Phet',
                 'Kanchanaburi',
                 'Khon Kaen',
                 'Krabi',
@@ -254,16 +271,26 @@ class _ReportIncidentState extends State<ReportIncident> {
               inputTextStyle:
                   TextUse.heading_3().copyWith(color: ColorsUse.accentColor),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 0),
+            Padding(
+              padding: const EdgeInsets.only(top: 5.0, bottom: 20.0),
+              child: AddImage(
+                onImageSelected: (image) {
+                  if (image != null) {
+                    setState(() {
+                      _selectedImage = image;
+                    });
+                  }
+                },
+                textfill: 'Add image + ',
+              ),
+            ),
             Center(
               child: PrimaryButton(
                 name: 'Confirm',
                 primary: ColorsUse.primaryColor,
                 textColor: ColorsUse.backgroundColor,
                 borderColor: false,
-                // onPressed: () {
-                //   // Define what happens when the button is pressed
-                // },
                 onTap: _postReport,
               ),
             ),

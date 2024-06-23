@@ -26,7 +26,6 @@ class _NotReviewedState extends State<NotReviewed> {
         List<dynamic> data = response.data['payload'];
         // Limit to a maximum of 10 reports
         List<dynamic> limitedData = data.length > 8 ? data.sublist(0, 8) : data;
-        print(limitedData);
         return limitedData.map((item) => Report.fromJson(item)).toList();
       } else {
         throw Exception('Failed to fetch reports');

@@ -27,7 +27,6 @@ class _ReviewedState extends State<Reviewed> {
         // Limit to a maximum of 10 reports
         List<dynamic> limitedData =
             data.length > 18 ? data.sublist(0, 18) : data;
-        print(limitedData);
         return limitedData.map((item) => Report.fromJson(item)).toList();
       } else {
         throw Exception('Failed to fetch reports');

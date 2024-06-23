@@ -24,10 +24,8 @@ class _PiechartRegionState extends State<PiechartRegion> {
     try {
       final response =
           await Dio().get('http://10.0.2.2:8080/report/reportByRegion');
-      print(response);
       if (response.data['success']) {
         Map<String, dynamic> data = response.data['payload'];
-        print(data);
         return data.entries
             .map((entry) =>
                 ReportRegion(region: entry.key, value: entry.value.toDouble()))

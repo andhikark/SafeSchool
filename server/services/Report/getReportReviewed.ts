@@ -6,6 +6,9 @@ const getReportReviewedService = async () => {
             status: {
                 in: ['approved', 'rejected']
             }
+        },
+        orderBy: {
+            dateOfIncident: 'desc' // Order by dateOfIncident ascending
         }
     }
     );

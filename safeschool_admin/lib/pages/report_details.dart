@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:safeschool_admin/Utilities/colors_use.dart';
@@ -6,6 +8,7 @@ import 'package:safeschool_admin/components/buttons.dart';
 import 'package:safeschool_admin/components/reject_message_confirm_popup.dart';
 import 'package:safeschool_admin/components/report_approved_success_popup.dart';
 import 'package:dio/dio.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ReportDetails extends StatefulWidget {
   final bool showButtons;
@@ -30,6 +33,8 @@ class _ReportDetailsState extends State<ReportDetails> {
   final TextEditingController typeOfBullyingController =
       TextEditingController();
   final TextEditingController longTextController = TextEditingController();
+
+  late String imageUrl = "";
 
   late Map<String, dynamic> reportData;
 
@@ -56,6 +61,7 @@ class _ReportDetailsState extends State<ReportDetails> {
           gradeLevelController.text = reportData['gradeLevel'];
           typeOfBullyingController.text = reportData['typeOfBullying'];
           longTextController.text = reportData['whatHappened'];
+          imageUrl = reportData['picture'];
         });
       } else {
         throw Exception('Failed to load report details');
@@ -151,6 +157,27 @@ class _ReportDetailsState extends State<ReportDetails> {
             _buildReadOnlyField(
                 'Tell us what happened?', longTextController.text,
                 isLongText: true),
+            const SizedBox(height: 16),
+            if (imageUrl.isNotEmpty)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Image',
+                    style: TextUse.heading_2()
+                        .copyWith(color: ColorsUse.accentColor),
+                  ),
+                  const SizedBox(height: 8),
+                  CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                ],
+              ),
             const SizedBox(height: 45),
             if (widget.showButtons) ...[
               Center(

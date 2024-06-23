@@ -24,10 +24,8 @@ class _PiechartStatsState extends State<PiechartStats> {
     try {
       final response =
           await Dio().get('http://10.0.2.2:8080/report/reportByType');
-      print(response);
       if (response.data['success']) {
         Map<String, dynamic> data = response.data['payload'];
-        print(data);
         return data.entries
             .map((entry) =>
                 BullyingType(type: entry.key, value: entry.value.toDouble()))
