@@ -14,14 +14,10 @@ class FirstPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 150,
-              backgroundColor: Colors.grey[200],
-              child: Text(
-                'SafeSchool\nLogo',
-                textAlign: TextAlign.center,
-                style: TextUse.heading_1().copyWith(color: Colors.grey),
-              ),
+            SizedBox(
+              height: 320,
+              width: 320,
+              child: Image.asset("assets/images/logo_fin.png"),
             ),
             const SizedBox(height: 20),
             Text(
@@ -29,7 +25,7 @@ class FirstPage extends StatelessWidget {
               style:
                   TextUse.heading_3().copyWith(color: ColorsUse.primaryColor),
             ),
-            const SizedBox(height: 130),
+            const SizedBox(height: 80),
             PrimaryButton(
               name: 'Sign In',
               primary: ColorsUse.primaryColor,

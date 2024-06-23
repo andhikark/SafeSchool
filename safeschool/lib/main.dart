@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safeschool/Utilities/colors_use.dart';
+import 'package:safeschool/Widgets/bottom_navbar.dart';
 // import 'package:safeschool/Widgets/bottom_navbar.dart';
 //import 'package:safeschool/Widgets/bottom_navbar.dart';
 //import 'package:safeschool/Utilities/text_use.dart';
@@ -14,6 +15,7 @@ import 'package:safeschool/pages/bullying_types/physical.dart';
 import 'package:safeschool/pages/bullying_types/verbal.dart';
 import 'package:safeschool/pages/bullying_types/cyber.dart';
 import 'package:safeschool/pages/bullying_types/sexual_h.dart';
+import 'package:safeschool/pages/home.dart';
 // import 'package:safeschool/pages/help.dart';
 // import 'package:safeschool/pages/home.dart';
 // import 'package:safeschool/pages/home_page.dart';
@@ -64,7 +66,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterScreen(),
         '/firstpage': (context) => const FirstPage()
       },
-      home: FirstPage(),
+      home: BottomNavbar(),
     );
   }
 }

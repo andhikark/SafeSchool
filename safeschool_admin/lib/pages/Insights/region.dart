@@ -29,7 +29,7 @@ class Region extends StatelessWidget {
                 ),
                 Positioned(
                   top: 20,
-                  left: 30,
+                  left: 20,
                   child: Row(
                     children: [
                       Container(
@@ -49,7 +49,7 @@ class Region extends StatelessWidget {
                             const TextStyle(color: ColorsUse.accentColor)),
                       ),
                       const SizedBox(
-                        width: 25,
+                        width: 46,
                       ),
                       Container(
                         height: 50,
@@ -72,7 +72,7 @@ class Region extends StatelessWidget {
                 ),
                 Positioned(
                   top: 90,
-                  left: 30,
+                  left: 20,
                   child: Row(
                     children: [
                       Container(
@@ -115,7 +115,7 @@ class Region extends StatelessWidget {
                 ),
                 Positioned(
                   top: 160,
-                  left: 30,
+                  left: 20,
                   child: Row(
                     children: [
                       Container(
