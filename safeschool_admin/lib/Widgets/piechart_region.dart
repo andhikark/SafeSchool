@@ -74,11 +74,13 @@ class _PiechartRegionState extends State<PiechartRegion> {
                     value: region.value,
                     color: getColorForRegion(region.region),
                     radius: radius,
-                    title: isTouched ? '${percentage.toStringAsFixed(1)}%' : '',
+                    title: isTouched
+                        ? '${percentage.toStringAsFixed(1)}%\n${region.value.toInt()} reports'
+                        : '${region.value.toInt()}',
                     titleStyle: TextStyle(
                       fontSize: fontSize,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     showTitle: true,
                   );

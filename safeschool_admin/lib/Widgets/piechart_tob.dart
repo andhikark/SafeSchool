@@ -74,11 +74,13 @@ class _PiechartStatsState extends State<PiechartStats> {
                     value: bullyingType.value,
                     color: getColorForBullyingType(bullyingType.type),
                     radius: radius,
-                    title: isTouched ? '${percentage.toStringAsFixed(1)}%' : '',
+                    title: isTouched
+                        ? '${percentage.toStringAsFixed(1)}%\n${bullyingType.value.toInt()} reports'
+                        : '${bullyingType.value.toInt()}',
                     titleStyle: TextStyle(
                       fontSize: fontSize,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                     showTitle: true,
                   );
