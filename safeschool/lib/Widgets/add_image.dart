@@ -48,10 +48,10 @@ class _AddImageState extends State<AddImage> {
             }
           },
           child: Card(
-            color: const Color.fromARGB(255, 90, 156, 142),
+            color: ColorsUse.secondaryColor,
             child: Padding(
               padding: const EdgeInsets.only(
-                  top: 40, left: 40, right: 40, bottom: 30),
+                  top: 35, left: 40, right: 40, bottom: 20),
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
@@ -61,11 +61,11 @@ class _AddImageState extends State<AddImage> {
                           height: 170,
                           fit: BoxFit.cover)
                       : const Icon(
-                          Icons.image,
-                          size: 30,
+                          Icons.add_photo_alternate_rounded,
+                          size: 35,
                         ), // Placeholder
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
                 Text(
                   widget.textfill,
                   style: const TextStyle(

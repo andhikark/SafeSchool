@@ -267,13 +267,29 @@ class _ReportIncidentState extends State<ReportIncident> {
                   'Tell Us What Happened. The More Details You Provide, The Better We Can Help.',
               controller: longTextController,
               descriptionTextStyle:
-                  TextUse.heading_1().copyWith(color: ColorsUse.accentColor),
+                  TextUse.heading_2().copyWith(color: ColorsUse.accentColor),
               inputTextStyle:
                   TextUse.heading_3().copyWith(color: ColorsUse.accentColor),
             ),
-            const SizedBox(height: 0),
+            RichText(
+              text: TextSpan(
+                  style: TextUse.heading_2().merge(const TextStyle(
+                      color: ColorsUse.accentColor, fontFamily: "Rubik")),
+                  children: const [
+                    TextSpan(text: "Attach Evidence"),
+                    TextSpan(
+                        text: "  (optional)",
+                        style: TextStyle(fontSize: 14, color: Colors.black54))
+                  ]),
+            ),
+            // Text("Attach Evidence",
+            //     style: TextUse.heading_2()
+            //         .merge(TextStyle(color: ColorsUse.accentColor))),
+            const SizedBox(
+              height: 10,
+            ),
             Padding(
-              padding: const EdgeInsets.only(top: 5.0, bottom: 20.0),
+              padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
               child: AddImage(
                 onImageSelected: (image) {
                   if (image != null) {
@@ -282,7 +298,7 @@ class _ReportIncidentState extends State<ReportIncident> {
                     });
                   }
                 },
-                textfill: 'Add image + ',
+                textfill: 'Add image',
               ),
             ),
             Center(
@@ -294,6 +310,9 @@ class _ReportIncidentState extends State<ReportIncident> {
                 onTap: _postReport,
               ),
             ),
+            const SizedBox(
+              height: 15,
+            )
           ],
         ),
       ),
