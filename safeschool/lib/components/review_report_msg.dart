@@ -1,10 +1,30 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:safeschool/Utilities/colors_use.dart';
 import 'package:safeschool/Utilities/text_use.dart';
 import 'package:safeschool/components/popup_buttons.dart';
 
 class ReviewPopup extends StatelessWidget {
-  const ReviewPopup({super.key});
+  final String date;
+  final String schoolName;
+  final String province;
+  final String gradeLevel;
+  final String typeOfBullying;
+  final String description;
+  final File? image;
+
+  const ReviewPopup({
+    Key? key,
+    required this.date,
+    required this.schoolName,
+    required this.province,
+    required this.gradeLevel,
+    required this.typeOfBullying,
+    required this.description,
+    this.image,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +106,7 @@ class ReviewPopup extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "05/06/24\nSharpie Institute of Technology, Bangkok\nGrade 10",
+                      "$date\n$schoolName, $province\n$gradeLevel",
                       style: TextUse.heading_3().copyWith(color: Colors.white),
                     ),
                   ],
@@ -115,15 +135,12 @@ class ReviewPopup extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Verbal Bullying",
+                      typeOfBullying,
                       style: TextUse.heading_2().copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      "I was walking to class during lunch break when "
-                      "a group of students from another grade level started calling me "
-                      "names and making fun of my clothes. They followed me for a while "
-                      "and wouldn't leave me alone. I felt scared and embarrassed.",
+                      description,
                       style: TextUse.body()
                           .copyWith(color: ColorsUse.secondaryColor),
                       textAlign: TextAlign.justify,
@@ -132,7 +149,9 @@ class ReviewPopup extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 22),
-              const Align(
+              if (image != null) Image.file(image!),
+              const SizedBox(height: 22),
+              Align(
                 alignment: Alignment.bottomCenter,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -141,13 +160,66 @@ class ReviewPopup extends StatelessWidget {
                       name: "Submit Report",
                       primary: ColorsUse.accentColor,
                       textColor: ColorsUse.secondaryColor,
+                      onTap: () async {
+                        // Create FormData
+                        FormData formData = FormData.fromMap({
+                          'dateOfIncident': date,
+                          'schoolName': schoolName,
+                          'province': province,
+                          'gradeLevel': gradeLevel,
+                          'typeOfBullying': typeOfBullying,
+                          'whatHappened': description,
+                          'file': image != null
+                              ? await MultipartFile.fromFile(image!.path,
+                                  filename: image!.path.split('/').last)
+                              : null,
+                        });
+
+                        try {
+                          Response response = await Dio().post(
+                            'http://10.0.2.2:8080/report/createReport',
+                            data: formData,
+                            options: Options(
+                              headers: {
+                                Headers.contentTypeHeader:
+                                    'multipart/form-data',
+                              },
+                            ),
+                          );
+
+                          if (response.statusCode == 200) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text('Incident reported successfully')),
+                            );
+                            Navigator.of(context)
+                                .pop(); // Close the ReviewPopup
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Failed to report incident')),
+                            );
+                          }
+                        } catch (e) {
+                          print('Error posting report: $e');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content:
+                                    Text('Error: Failed to report incident')),
+                          );
+                        }
+                      },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     SecondaryButton(
                       name: "Edit Information",
                       primary: ColorsUse.secondaryColor,
                       textColor: ColorsUse.accentColor,
                       borderColor: true,
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
                     ),
                   ],
                 ),

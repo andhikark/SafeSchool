@@ -10,6 +10,7 @@ import 'package:safeschool/components/text_form_fields.dart';
 import 'package:safeschool/components/long_text_form_field.dart';
 import 'package:safeschool/components/buttons.dart';
 import 'package:safeschool/Widgets/add_image.dart';
+import 'package:safeschool/components/review_report_msg.dart';
 
 class ReportIncident extends StatefulWidget {
   const ReportIncident({super.key});
@@ -46,7 +47,7 @@ class _ReportIncidentState extends State<ReportIncident> {
     }
   }
 
-  void _postReport() async {
+  void _reviewReport() {
     DateTime parsedDate = DateFormat('dd/MM/yyyy').parse(dateController.text);
     String formattedDate = DateFormat('yyyy-MM-dd').format(parsedDate);
     String formattedProvince =
@@ -56,57 +57,19 @@ class _ReportIncidentState extends State<ReportIncident> {
     String formattedTypeOfBullying =
         mapDropdownItem(typeOfBullyingController.text);
 
-    // Create FormData
-    FormData formData = FormData.fromMap({
-      'dateOfIncident': formattedDate,
-      'schoolName': schoolNameController.text,
-      'province': formattedProvince,
-      'gradeLevel': formattedGrade,
-      'typeOfBullying': formattedTypeOfBullying,
-      'whatHappened': longTextController.text,
-      'file': _selectedImage != null
-          ? await MultipartFile.fromFile(_selectedImage!.path,
-              filename: _selectedImage!.path.split('/').last)
-          : null,
-    });
-
-    print(formData.fields);
-
-    try {
-      Response response = await dio.post(
-        'http://10.0.2.2:8080/report/createReport',
-        data: formData,
-        options: Options(
-          headers: {
-            Headers.contentTypeHeader: 'multipart/form-data',
-          },
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ReviewPopup(
+          date: formattedDate,
+          schoolName: schoolNameController.text,
+          province: formattedProvince,
+          gradeLevel: formattedGrade,
+          typeOfBullying: formattedTypeOfBullying,
+          description: longTextController.text,
+          image: _selectedImage,
         ),
-      );
-
-      if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Incident reported successfully')),
-        );
-        dateController.clear();
-        schoolNameController.clear();
-        provinceDropDownController.clear();
-        gradeLevelController.clear();
-        typeOfBullyingController.clear();
-        longTextController.clear();
-        setState(() {
-          _selectedImage = null;
-        });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Failed to report incident')),
-        );
-      }
-    } catch (e) {
-      print('Error posting report: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error: Failed to report incident')),
-      );
-    }
+      ),
+    );
   }
 
   @override
@@ -267,29 +230,13 @@ class _ReportIncidentState extends State<ReportIncident> {
                   'Tell Us What Happened. The More Details You Provide, The Better We Can Help.',
               controller: longTextController,
               descriptionTextStyle:
-                  TextUse.heading_2().copyWith(color: ColorsUse.accentColor),
+                  TextUse.heading_1().copyWith(color: ColorsUse.accentColor),
               inputTextStyle:
                   TextUse.heading_3().copyWith(color: ColorsUse.accentColor),
             ),
-            RichText(
-              text: TextSpan(
-                  style: TextUse.heading_2().merge(const TextStyle(
-                      color: ColorsUse.accentColor, fontFamily: "Rubik")),
-                  children: const [
-                    TextSpan(text: "Attach Evidence"),
-                    TextSpan(
-                        text: "  (optional)",
-                        style: TextStyle(fontSize: 14, color: Colors.black54))
-                  ]),
-            ),
-            // Text("Attach Evidence",
-            //     style: TextUse.heading_2()
-            //         .merge(TextStyle(color: ColorsUse.accentColor))),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 0),
             Padding(
-              padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+              padding: const EdgeInsets.only(top: 5.0, bottom: 20.0),
               child: AddImage(
                 onImageSelected: (image) {
                   if (image != null) {
@@ -298,7 +245,7 @@ class _ReportIncidentState extends State<ReportIncident> {
                     });
                   }
                 },
-                textfill: 'Add image',
+                textfill: 'Add image + ',
               ),
             ),
             Center(
@@ -307,12 +254,9 @@ class _ReportIncidentState extends State<ReportIncident> {
                 primary: ColorsUse.primaryColor,
                 textColor: ColorsUse.backgroundColor,
                 borderColor: false,
-                onTap: _postReport,
+                onTap: _reviewReport,
               ),
             ),
-            const SizedBox(
-              height: 15,
-            )
           ],
         ),
       ),
