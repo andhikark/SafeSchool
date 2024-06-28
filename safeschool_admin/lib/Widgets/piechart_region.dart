@@ -23,7 +23,7 @@ class _PiechartRegionState extends State<PiechartRegion> {
   Future<List<ReportRegion>> fetchReportData() async {
     try {
       final response =
-          await Dio().get('http://10.0.2.2:8080/report/reportByRegion');
+          await Dio().get('http://153.92.4.54:8080/report/reportByRegion');
       if (response.data['success']) {
         Map<String, dynamic> data = response.data['payload'];
         return data.entries

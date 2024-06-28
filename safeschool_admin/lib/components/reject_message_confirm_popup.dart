@@ -22,7 +22,7 @@ class _RejectMessageConfirmPopupState extends State<RejectMessageConfirmPopup> {
   Future<void> updateReportStatus() async {
     final dio = Dio();
     final url =
-        'http://10.0.2.2:8080/report/updateReportRejected/${widget.reportId}';
+        'http://153.92.4.54:8080/report/updateReportRejected/${widget.reportId}';
 
     try {
       final response = await dio.patch(url);

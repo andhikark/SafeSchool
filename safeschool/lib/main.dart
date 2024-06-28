@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterScreen(),
         '/firstpage': (context) => const FirstPage()
       },
-      home: BottomNavbar(),
+      home: FirstPage(),
     );
   }
 }

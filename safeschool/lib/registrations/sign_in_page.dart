@@ -51,7 +51,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Future<Response> _makeLoginRequest(Map<String, dynamic> data) async {
     return dio.post(
-      'http://10.0.2.2:8080/auth/login', // Use HTTPS
+      'http://153.92.4.54:8080/auth/login', // Use HTTPS
       data: data,
     );
   }

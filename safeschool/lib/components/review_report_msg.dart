@@ -106,7 +106,7 @@ class ReviewPopup extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "$date\n$schoolName, ${province.replaceAll('_', ' ')}\n$gradeLevel",
+                      "$date\n$schoolName, ${province.replaceAll('_', ' ')}\n${gradeLevel.replaceAll('_', ' ')}",
                       style: TextUse.heading_3().copyWith(color: Colors.white),
                     ),
                   ],
@@ -177,7 +177,7 @@ class ReviewPopup extends StatelessWidget {
 
                         try {
                           Response response = await Dio().post(
-                            'http://10.0.2.2:8080/report/createReport',
+                            'http://153.92.4.54:8080/report/createReport',
                             data: formData,
                             options: Options(
                               headers: {

@@ -46,7 +46,7 @@ class _ReportDetailsState extends State<ReportDetails> {
 
   Future<void> fetchData() async {
     final dio = Dio();
-    final url = 'http://10.0.2.2:8080/report/reportById/${widget.reportId}';
+    final url = 'http://153.92.4.54:8080/report/reportById/${widget.reportId}';
 
     try {
       final response = await dio.get(url);
@@ -86,7 +86,7 @@ class _ReportDetailsState extends State<ReportDetails> {
   Future<void> updateReportStatus(String status) async {
     final dio = Dio();
     final url =
-        'http://10.0.2.2:8080/report/updateReport$status/${widget.reportId}';
+        'http://153.92.4.54:8080/report/updateReport$status/${widget.reportId}';
 
     print(widget.reportId);
     try {

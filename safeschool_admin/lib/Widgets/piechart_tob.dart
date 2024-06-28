@@ -23,7 +23,7 @@ class _PiechartStatsState extends State<PiechartStats> {
   Future<List<BullyingType>> fetchBullyingData() async {
     try {
       final response =
-          await Dio().get('http://10.0.2.2:8080/report/reportByType');
+          await Dio().get('http://153.92.4.54:8080/report/reportByType');
       if (response.data['success']) {
         Map<String, dynamic> data = response.data['payload'];
         return data.entries

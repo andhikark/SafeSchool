@@ -21,7 +21,7 @@ class _NotReviewedState extends State<NotReviewed> {
   Future<List<Report>> fetchReports() async {
     try {
       final response =
-          await Dio().get('http://10.0.2.2:8080/report/reportPending');
+          await Dio().get('http://153.92.4.54:8080/report/reportPending');
       if (response.data['success']) {
         List<dynamic> data = response.data['payload'];
         // Limit to a maximum of 10 reports
