@@ -106,7 +106,7 @@ class ReviewPopup extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "$date\n$schoolName, $province\n$gradeLevel",
+                      "$date\n$schoolName, ${province.replaceAll('_', ' ')}\n$gradeLevel",
                       style: TextUse.heading_3().copyWith(color: Colors.white),
                     ),
                   ],
@@ -135,7 +135,7 @@ class ReviewPopup extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      typeOfBullying,
+                      typeOfBullying.replaceAll('_', ' '),
                       style: TextUse.heading_2().copyWith(color: Colors.white),
                     ),
                     const SizedBox(height: 10),
